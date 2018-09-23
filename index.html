@@ -41,6 +41,13 @@
 			"weight": 1,
 		};
 		
+		var subdivisions = new L.GeoJSON(subdivisions, {
+			style: styleSubdivision,
+			onEachFeature: function(feature, marker) {
+				marker.bindPopup(
+					'<div><b>Subdivision Number:</b> '+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.Owner +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
+			}});
+		
 		var surveyWithoutInfo = L.geoJSON(surveyWithoutInfo, {
 			style: styleWithout,
 			onEachFeature: function(feature, marker) {
@@ -54,12 +61,6 @@
 					'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
 			}});
 						
-		var subdivisions = new L.GeoJSON(subdivisions, {
-			style: styleSubdivision,
-			onEachFeature: function(feature, marker) {
-				marker.bindPopup(
-					'<div><b>Subdivision Number:</b> '+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.Owner +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
-			}});
 		
 		//Layers
 		var baseLayers = {
