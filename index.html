@@ -1,0 +1,111 @@
+<html>
+<head>
+	<title>Hello Map!</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+	<link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.css" />
+	<link rel="stylesheet" href="style.css" />
+</head> 
+<body>
+	<header id="header"><b>TALEIGAO</b> MAP DASHBOARD</header>
+
+	<div id="map"></div> 
+	<script type="text/javascript" src="JSON/surveyWithoutInfo.js"></script>
+	<script type="text/javascript" src="JSON/surveyWithInfo.js"></script>
+	<script type="text/javascript" src="JSON/structures.js"></script>
+	<script src="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>
+	<!-- MAP SCRIPT -->
+	<script type="text/javascript">
+		var map = L.map('map').setView([15.47, 73.82], 13);
+		var basemap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+			{
+				attribution: 'Layers by <a href="http://turbosketch.com/">M/s TurboSketch Goa</a> | Programming by Pulkit Singal | v0.2',
+				maxZoom: 17,
+				minZoom: 12,
+			}).addTo(map);
+		
+		var styleWithout = {
+			"fillColor": 'black',
+			"color": 'black',
+			"weight": 1,
+		};
+		
+		var styleWith = {
+			"fillColor": 'blue',
+			"color": 'blue',
+			"weight": 1,
+		};		
+		
+		var styleStructures = {
+			"fillColor": 'black',
+			"color": 'black',
+			"weight": 0,
+		};
+		
+		var surveyWithoutInfo = L.geoJSON(surveyWithoutInfo, {
+			style: styleWithout,
+			onEachFeature: function(feature, marker) {
+				marker.bindPopup(
+				'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
+			}});
+		var surveyWithInfo = new L.GeoJSON(surveyWithInfo, {
+			style: styleWith,
+			onEachFeature: function(feature, marker) {
+				marker.bindPopup(
+				'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
+			}});
+				
+		var structures = L.geoJSON(structures, {style: styleStructures});
+		
+		
+		//Layers
+		var baseLayers = {
+			"BaseMap": basemap
+		};
+		
+		var overlays = {
+			"Structures": structures,
+			"Survey": surveyWithoutInfo,
+			"Survey (with Owner)": surveyWithInfo
+		};
+		
+		L.control.layers(baseLayers	, overlays,
+		{
+			collapsed: false,
+			hideSingleBase: true,
+		}).addTo(map); 
+
+		//Search
+		var searchControl = new L.Control.Search({
+			layer: surveyWithInfo,
+			propertyName: 'S_NO',
+			marker: false,
+			moveToLocation: function(latlng, title, map) {
+				//map.fitBounds( latlng.layer.getBounds() );
+				var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+				map.setView(latlng, zoom); // access the zoom
+			}
+		});
+		
+		
+		searchControl.on('search:locationfound', function(e) {
+			
+			//console.log('search:locationfound', );
+
+			//map.removeLayer(this._markerSearch)
+
+			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+			if(e.layer._popup)
+				e.layer.openPopup();
+
+		}).on('search:collapsed', function(e) {
+
+			surveyWithInfo.eachLayer(function(layer) {	//restore feature color
+				surveyWithInfo.resetStyle(layer);
+			});	
+		});
+		
+		map.addControl( searchControl );  //inizialize search control
+	</script>
+</body>
+</html>
