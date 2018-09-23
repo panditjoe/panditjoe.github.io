@@ -12,7 +12,6 @@
 
 	<div id="map"></div> 
 	<script src="JSON/surveyAll.js"></script>
-	<script src="JSON/structures.js"></script>
 	<script src="JSON/search.js"></script>
 	<!-- MAP SCRIPT -->
 	<script type="text/javascript">
@@ -36,12 +35,6 @@
 			"weight": 1,
 		};		
 		
-		var styleStructures = {
-			"fillColor": 'black',
-			"color": 'black',
-			"weight": 0,
-		};
-		
 		var surveyWithoutInfo = L.geoJSON(surveyWithoutInfo, {
 			style: styleWithout,
 			onEachFeature: function(feature, marker) {
@@ -54,9 +47,7 @@
 				marker.bindPopup(
 				'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
 			}});
-				
-		var structures = L.geoJSON(structures, {style: styleStructures});
-		
+						
 		
 		//Layers
 		var baseLayers = {
@@ -64,7 +55,6 @@
 		};
 		
 		var overlays = {
-			"Structures": structures,
 			"Survey": surveyWithoutInfo,
 			"Survey (with Owner)": surveyWithInfo
 		};
