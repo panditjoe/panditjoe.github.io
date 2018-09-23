@@ -54,7 +54,7 @@
 					'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
 			}});
 						
-		var subdivisions = new L.GeoJSON(subdivisons, {
+		var subdivisions = new L.GeoJSON(subdivisions, {
 			style: styleSubdivision,
 			onEachFeature: function(feature, marker) {
 				marker.bindPopup(
@@ -81,7 +81,7 @@
 		//Search
 		var searchControl = new L.Control.Search({
 			layer: subdivisions,
-			propertyName: 'S_NO',
+			propertyName: 'SurveyNo',
 			marker: false,
 			moveToLocation: function(latlng, title, map) {
 				//map.fitBounds( latlng.layer.getBounds() );
