@@ -35,19 +35,31 @@
 			"weight": 1,
 		};		
 		
+		var styleSubdivision = {
+			"fillColor": 'red',
+			"color": 'red',
+			"weight": 1,
+		};
+		
 		var surveyWithoutInfo = L.geoJSON(surveyWithoutInfo, {
 			style: styleWithout,
 			onEachFeature: function(feature, marker) {
 				marker.bindPopup(
-				'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
+					'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
 			}});
 		var surveyWithInfo = new L.GeoJSON(surveyWithInfo, {
 			style: styleWith,
 			onEachFeature: function(feature, marker) {
 				marker.bindPopup(
-				'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
+					'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
 			}});
 						
+		var subdivisions = new L.GeoJSON(subdivisons, {
+			style: styleSubdivision,
+			onEachFeature: function(feature, marker) {
+				marker.bindPopup(
+					'<div><b>Survey Number:</b> '+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.Owner +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
+			}});
 		
 		//Layers
 		var baseLayers = {
@@ -56,6 +68,7 @@
 		
 		var overlays = {
 			"Survey": surveyWithoutInfo,
+			"Subdivisions": subdivisions,
 			"Survey (with Owner)": surveyWithInfo
 		};
 		
@@ -67,7 +80,7 @@
 
 		//Search
 		var searchControl = new L.Control.Search({
-			layer: surveyWithInfo,
+			layer: subdivisions,
 			propertyName: 'S_NO',
 			marker: false,
 			moveToLocation: function(latlng, title, map) {
