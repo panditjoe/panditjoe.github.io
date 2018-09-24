@@ -6,6 +6,7 @@ Updates v0.3 (25/09/2018):
 - Added scale bar
 - Updated attribute links 
 - Improved legibility of layer data
+- Added a satellite base imagery
 
 v0.2 (22/09/2018):
 - Search function for selected survey numbers
