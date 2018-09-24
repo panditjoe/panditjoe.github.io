@@ -28,12 +28,7 @@
 				edgeBufferTiles: 2
 			}).addTo(map);
 		
-		lc = L.control.locate({
-		    strings: {
-			title: "Show me where I am, yo!"
-		    }
-		}).addTo(map);
-		
+		//Styling GeoJson
 		var styleWithout = {
 			"fillColor": 'black',
 			"color": 'black',
@@ -52,6 +47,7 @@
 			"weight": 1,
 		};
 		
+		//GeoJSON Files
 		var subdivisions = new L.GeoJSON(subdivisions, {
 			style: styleSubdivision,
 			onEachFeature: function(feature, marker) {
@@ -104,25 +100,30 @@
 			}
 		});
 		
-		
 		searchControl.on('search:locationfound', function(e) {
-			
 			//console.log('search:locationfound', );
-
 			//map.removeLayer(this._markerSearch)
 
 			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
 			if(e.layer._popup)
 				e.layer.openPopup();
-
 		}).on('search:collapsed', function(e) {
 
 			surveyWithInfo.eachLayer(function(layer) {	//restore feature color
 				surveyWithInfo.resetStyle(layer);
 			});	
 		});
-		
 		map.addControl( searchControl );  //inizialize search control
+		
+		//location marker 
+		lc = L.control.locate({
+		    strings: {
+			title: "Show me where I am, yo!"
+		    }
+		}).addTo(map);
+		
+		//scale bar
+		var scale = L.control.scale(position: 'bottomright', imperial: 'false').addTo(map);
 	</script>
 </body>
 </html>
