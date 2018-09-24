@@ -69,6 +69,7 @@
 					'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
 			}});
 						
+		var boundary = new L.GeoJSON(boundary);
 		
 		//Layers
 		var baseLayers = {
@@ -76,6 +77,7 @@
 		};
 		
 		var overlays = {
+			"Boundary": boundary,
 			"Survey": surveyWithoutInfo,
 			"Subdivisions": subdivisions,
 			"Survey (with Owner)": surveyWithInfo
