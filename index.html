@@ -11,7 +11,7 @@
 	<header id="header"><b>TALEIGAO</b> WEB MAPPING INTERFACE</header>
 	<div id="map"></div> 
 	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
-	<script src="JSON/surveyAll.js"></script>
+	<script src="JSON/polygons.js"></script>
 	<script src="https://github.com/TolonUK/Leaflet.EdgeBuffer/blob/master/src/leaflet.edgebuffer.js"></script>    
 	<script src="https://www.domoritz.de/leaflet-locatecontrol/src/L.Control.Locate.js"></script>
 	<script src="JSON/search.js"></script>
@@ -35,17 +35,11 @@
 			}).addTo(map);
 		
 		//Styling GeoJson
-		var styleWithout = {
+		var styleSurvey = {
 			"fillColor": 'black',
 			"color": 'black',
 			"weight": 1,
 		};
-		
-		var styleWith = {
-			"fillColor": 'blue',
-			"color": 'blue',
-			"weight": 1,
-		};		
 		
 		var styleSubdivision = {
 			"fillColor": 'red',
@@ -54,27 +48,19 @@
 		};
 		
 		//GeoJSON Files
-		var subdivisions = new L.GeoJSON(subdivisions, {
+		var subdivisions = new L.GeoJSON(subdivisionPoly, {
 			style: styleSubdivision,
 			onEachFeature: function(feature, marker) {
 				marker.bindPopup(
-					'<div><b>Subdivision Number:</b> '+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.Owner +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
+					'<div><b>Subdivision Number:</b>'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
 			}});
 		
-		var surveyWithoutInfo = L.geoJSON(surveyWithoutInfo, {
-			style: styleWithout,
+		var survey = L.geoJSON(surveyPoly, {
+			style: styleSurvey /**,
 			onEachFeature: function(feature, marker) {
 				marker.bindPopup(
-					'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
+					'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>'**/);
 			}});
-		var surveyWithInfo = new L.GeoJSON(surveyWithInfo, {
-			style: styleWith,
-			onEachFeature: function(feature, marker) {
-				marker.bindPopup(
-					'<div><b>Survey Number:</b> '+feature.properties.S_NO+'</div><div><b>Area: </b>'+feature.properties.S_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.S_PER+' meters</div><div><b>Number of Structures: </b>'+feature.properties.Count_+'</div>');
-			}});
-						
-		var boundary = new L.GeoJSON(boundary);
 		
 		//Layers
 		var baseLayers = {
@@ -83,10 +69,8 @@
 		};
 		
 		var overlays = {
-			"Boundary": boundary,
-			"Survey": surveyWithoutInfo,
-			"Subdivisions": subdivisions,
-			"Survey (with Owner)": surveyWithInfo
+			"Survey": survey,
+			"Subdivisions": subdivisions
 		};
 		
 		L.control.layers(baseLayers, overlays,
@@ -97,14 +81,14 @@
 		//location marker 
 		lc = L.control.locate({
 		    strings: {
-			title: "Show me where I am, yo!"
+			title: "Locate me!"
 		    }
 		}).addTo(map);
 		
 		//Search
 		var searchControl = new L.Control.Search({
 			layer: subdivisions,
-			propertyName: 'SurveyNo',
+			propertyName: 'SD_NO',
 			marker: false,
 			moveToLocation: function(latlng, title, map) {
 				//map.fitBounds( latlng.layer.getBounds() );
