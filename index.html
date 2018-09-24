@@ -22,7 +22,7 @@
 		var map = L.map('map').setView([15.47, 73.82], 13);
 		var basemap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
 			{
-				attribution: 'Layers by <a href="http://turbosketch.com/">M/s TurboSketch Goa</a> | Programming by Pulkit Singal | v0.2',
+				attribution: 'Layers by <a href="http://turbosketch.com/">M/s TurboSketch Goa</a> | Programming by Pulkit Singal | v0.3',
 				maxZoom: 17,
 				minZoom: 12,
 				edgeBufferTiles: 2
@@ -88,6 +88,13 @@
 			hideSingleBase: true,
 		}).addTo(map); 
 
+		//location marker 
+		lc = L.control.locate({
+		    strings: {
+			title: "Show me where I am, yo!"
+		    }
+		}).addTo(map);
+		
 		//Search
 		var searchControl = new L.Control.Search({
 			layer: subdivisions,
@@ -115,15 +122,8 @@
 		});
 		map.addControl( searchControl );  //inizialize search control
 		
-		//location marker 
-		lc = L.control.locate({
-		    strings: {
-			title: "Show me where I am, yo!"
-		    }
-		}).addTo(map);
-		
 		//scale bar
-		var scale = L.control.scale({position: 'bottomright', imperial: 'false'}).addTo(map);
+		var scale = L.control.scale({position: 'bottomleft', imperial: 'false'}).addTo(map);
 	</script>
 </body>
 </html>
