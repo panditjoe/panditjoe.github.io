@@ -99,9 +99,8 @@
 			//console.log('search:locationfound', );
 			//map.removeLayer(this._markerSearch)
 			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
-			e.layer.bindPopup('+feature.properties.SurveyNo+');
 			if(e.layer._popup)
-				e.layer.openPopup();
+				e.layer.openPopup('<div>'+feature.properties.SurveyNo+'</div>');
 			}).on('search:collapsed', function(e) {
 				survey.eachLayer(function(layer) {	//restore feature color
 				survey.resetStyle(layer);
