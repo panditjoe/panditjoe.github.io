@@ -56,7 +56,9 @@
 			style: styleSurvey,
 			onEachFeature: function(feature, marker) {
 				marker.bindTooltip(
-					'<div>'+feature.properties.SurveyNo+'</div>'
+					'<div>'+feature.properties.SurveyNo+'</div>', {
+						direction: 'center',
+						className: 'newTooltip'
 				);
 			}
 		});	
@@ -122,9 +124,7 @@
 					if (l.getTooltip()) {
 						var tooltip = l.getTooltip();
 						l.unbindTooltip().bindTooltip(tooltip, {
-							permanent: false,
-							direction: 'center',
-							className: 'newTooltip'
+							permanent: false
 						})
 					}
 				})
@@ -133,9 +133,7 @@
 					if (l.getTooltip()) {
 						var tooltip = l.getTooltip();
 						l.unbindTooltip().bindTooltip(tooltip, {
-							permanent: true,
-							direction: 'center',
-							className: 'newTooltip'
+							permanent: true
 						})
 					}
 				})
