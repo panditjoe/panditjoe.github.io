@@ -779,9 +779,9 @@ html, body {
 
 /* custom css */
 		.newTooltip {
-			color: black;
-			font-size:12px;
-			font-weight: 700;
+			color: #E6C846;
+			font-size:13px;
+			font-weight: 900;
 			fillColor: none;
 			fillOpacity: 0;
 			background-color: none;
