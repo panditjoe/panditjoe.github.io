@@ -1,6 +1,10 @@
-# WEBMAP v0.3
+# WEBMAP v0.4
 
-Updates v0.3 (25/09/2018):
+Updates v0.4 (02/10/18):
+- Added labels
+- Added bit.ly link
+
+v0.3 (25/09/2018):
 - Added location marker
 - Faster map loading
 - Added scale bar
