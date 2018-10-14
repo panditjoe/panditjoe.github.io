@@ -795,6 +795,4 @@ html, body {
 			interactive: false;
 			fill: false;
 		}
-		.leaflet-popup-tip-container {
-			display: none;
-		} 
+
