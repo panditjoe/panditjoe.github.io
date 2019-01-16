@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>Intelligent Nagaur</title>
+	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head> 
+<body>
+	<header id="header"><b>BHU-NIDHI</b>: Nagaur, RAJASTHAN</header>
+	<div id="map"></div> 
+	<script src="source.js"></script>
+	<script src="polygons.js"></script>
+
+	<!-- MAP SCRIPT -->
+	<script type="text/javascript">
+		var map = L.map('map').setView([15.47, 73.82], 13);
+		var baseMap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+			{
+				attribution: 'Layers by <a href="http://rtechinfra.com/" target="blank">R-Tech Infra Associates, Jaipur</a> | Programming by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.4</a>',
+				maxZoom: 17,
+				minZoom: 12,
+			}).addTo(map);
+		
+		var  terrainMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+			{
+				attribution: 'Layers by <a href="http://rtechinfra.com/" target="blank">R-Tech Infra Associates, Jaipur</a> | Programming by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.4</a>',
+				maxZoom: 17,
+				minZoom: 12,
+			}).addTo(map);
+		
+		//Styling GeoJson		
+		var styleSubdivisions = {
+			"fillColor": '#D46C7F',
+			"color": '#41BBD9',
+			"weight": 0.85,
+		};
+		
+		var styleSurvey = {
+			"fill": 'false',
+			"fillOpacity": 0,
+			"dashArray":4,
+			"color": '#E6C846',
+			"weight": 2.5,
+		};		
+		
+		//GeoJSON files
+		var subdivision = new L.GeoJSON(subdivision, {
+			style: styleSubdivisions,
+			onEachFeature: function(feature, marker) {
+				marker.bindPopup(
+					'<div><b>Survey Number:</b>'+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
+			}
+		});
+			
+		var survey = new L.GeoJSON(survey, {
+			style: styleSurvey,
+			onEachFeature: function(feature, marker) {
+				marker.bindTooltip(
+					'<div>'+feature.properties.SurveyNo+'</div>', {
+						direction: 'center',
+						className: 'newTooltip'
+					});
+			}
+		});	
+		
+		//Layers
+		var baseLayers = {
+			"BaseMap": baseMap,
+			"Satellite": terrainMap
+		};
+		
+		var overlays = {
+			"Survey": survey,
+			"Subdivision": subdivision
+		};
+		
+		L.control.layers(baseLayers	, overlays,
+		{
+			collapsed: false,
+			hideSingleBase: true,
+		}).addTo(map);
+		
+		//Search Bar
+		var searchControl = new L.Control.Search ({
+			layer: survey,
+			propertyName: 'SurveyNo',
+			marker: false,
+			moveToLocation: function(latlng, title, map) {
+				//map.fitBounds( latlng.layer.getBounds() );
+				var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+				map.setView(latlng, zoom); // access the zoom
+		}});
+		
+		searchControl.on('search:locationfound', function(e) {
+		
+			//console.log('search:locationfound', );
+			//map.removeLayer(this._markerSearch)
+			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+			if(e.layer._popup)
+				e.layer.openPopup();
+			}).on('search:collapsed', function(e) {
+				survey.eachLayer(function(layer) {	//restore feature color
+				survey.resetStyle(layer);
+			});	
+		});
+		map.addControl( searchControl );  //inizialize search control
+		
+		//location marker 
+		lc = L.control.locate({
+		    strings: {
+			title: "Locate me!"
+		    }
+		}).addTo(map);
+		
+		//Scale
+		var scale = L.control.scale({position: 'bottomleft', imperial: 'false'}).addTo(map);
+		
+		//Labels
+		var lastZoom;
+		function resizeTooltip() {
+			var zoom = map.getZoom();
+			if (zoom < 16 && (!lastZoom || lastZoom >= 16)) {
+				map.eachLayer(function(l) {
+					if (l.getTooltip()) {
+						var tooltip = l.getTooltip();
+						l.unbindTooltip().bindTooltip(tooltip, {
+							permanent: false
+						})
+					}
+				})
+			} else if (zoom >= 16 && (!lastZoom || lastZoom < 16)) {
+				map.eachLayer(function (l) {
+					if (l.getTooltip()) {
+						var tooltip = l.getTooltip();
+						l.unbindTooltip().bindTooltip(tooltip, {
+							permanent: true
+						})
+					}
+				})
+			};
+			lastZoom = zoom;
+		}
+		
+		map.on('zoomend', resizeTooltip);
+	</script>
+</body>
+</html>
