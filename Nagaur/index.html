@@ -58,11 +58,14 @@
 		});
 		**/
 		
-		var survey = new L.GeoJSON(city_survey, {
+		var survey = new L.GeoJSON(survey, {
 			style: styleSurvey,
 			onEachFeature: function(feature, marker) {
 				marker.bindTooltip(
-					'<div>'+feature.properties.KHASRA_NO+'</div>', {
+					'<div><b>Khasra Number:</b>'+feature.properties.KHASRA_NO+'</div>
+					 <div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OWNERSHIP +'</div>
+					 <div><b>Area (khatebandi): </b>'+feature.properties.AREA_KB+' </div>
+					 <div><b>Area (actual): </b>'+feature.properties.AREA+' sq. meters</div>', {
 						direction: 'center',
 						className: 'newTooltip'
 					});
