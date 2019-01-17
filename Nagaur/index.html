@@ -2,12 +2,12 @@
 <html lang="en-US">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<title>Intelligent Nagaur</title>
+	<title>BHU-NIDHI v0.2</title>
 	<link rel="stylesheet" href="https://panditjoe.github.io/JSON/style.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head> 
 <body>
-	<header id="header"><b>BHU-NIDHI</b>: Nagaur, RAJASTHAN</header>
+	<header id="header"><b>Intelligent Rajasthan</b>, Nagaur</header>
 	<div id="map"></div> 
 	<script src="https://panditjoe.github.io/JSON/source.js"></script>
 	<script src="polygon.js"></script>
@@ -17,27 +17,27 @@
 		var map = L.map('map').setView([27.19, 73.74], 13);
 		var baseMap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
 			{
-				attribution: 'Layers by <a href="http://rtechinfra.com/" target="blank">R-Tech Infra Associates, Jaipur</a> | Programming by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.4</a>',
+				attribution: 'Layers by <a href="http://rtechinfra.com/" target="blank">R-Tech Infra Associates, Jaipur</a> | Programming by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/Nagaur/README.md" target="blank">v0.2</a>',
 				maxZoom: 19,
 				minZoom: 10,
 			}).addTo(map);
 		
 		var  terrainMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 			{
-				attribution: 'Layers by <a href="http://rtechinfra.com/" target="blank">R-Tech Infra Associates, Jaipur</a> | Programming by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.4</a>',
+				attribution: 'Layers by <a href="http://rtechinfra.com/" target="blank">R-Tech Infra Associates, Jaipur</a> | Programming by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/Nagaur/README.md" target="blank">v0.2</a>',
 				maxZoom: 19,
 				minZoom: 10,
 			}).addTo(map);
 		
 		//Styling GeoJson
-		/*
+		
 		var styleSubdivisions = {
 			"fillColor": '#D46C7F',
 			"color": '#41BBD9',
 			"weight": 0.85,
 		};
-		*/
 		
+		/*
 		var styleSurvey = {
 			"fill": 'false',
 			"fillOpacity": 0,
@@ -45,32 +45,31 @@
 			"color": '#E6C846',
 			"weight": 2.5,
 		};		
+		*/
 		
 		//GeoJSON files
 		
-		/**
-		var subdivision = new L.GeoJSON(subdivision, {
+		
+		var subdivision = new L.GeoJSON(survey, {
 			style: styleSubdivisions,
 			onEachFeature: function(feature, marker) {
 				marker.bindPopup(
-					'<div><b>Survey Number:</b>'+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
+					'<div><b>Khasra Number: </b>'+feature.properties.KHASRA_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OWNERSHIP +'</div><div><b>Area (khatebandi): </b>'+feature.properties.AREA_KB+' </div><div><b>Area (actual): </b>'+feature.properties.AREA+' sq. meters</div>');
 			}
 		});
-		**/
 		
+			/**
 		var survey = new L.GeoJSON(survey, {
 			style: styleSurvey,
 			onEachFeature: function(feature, marker) {
 				marker.bindTooltip(
-					'<div><b>Khasra Number:</b>'+feature.properties.KHASRA_NO+'</div>
-					 <div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OWNERSHIP +'</div>
-					 <div><b>Area (khatebandi): </b>'+feature.properties.AREA_KB+' </div>
-					 <div><b>Area (actual): </b>'+feature.properties.AREA+' sq. meters</div>', {
+					'<div><b>Khasra Number:</b>'+feature.properties.KHASRA_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OWNERSHIP +'</div><div><b>Area (khatebandi): </b>'+feature.properties.AREA_KB+' </div><div><b>Area (actual): </b>'+feature.properties.AREA+' sq. meters</div>', {
 						direction: 'center',
 						className: 'newTooltip'
 					});
 			}
 		});	
+		**/
 		
 		//Layers
 		var baseLayers = {
@@ -79,8 +78,8 @@
 		};
 		
 		var overlays = {
-			"Survey": survey,
-			//"Subdivision": subdivision
+			//"Survey": survey,
+			"Survey": subdivision
 		};
 		
 		L.control.layers(baseLayers	, overlays,
@@ -91,7 +90,7 @@
 		
 		//Search Bar
 		var searchControl = new L.Control.Search ({
-			layer: survey,
+			layer: subdivision,
 			propertyName: 'KHASRA_NO',
 			marker: false,
 			moveToLocation: function(latlng, title, map) {
