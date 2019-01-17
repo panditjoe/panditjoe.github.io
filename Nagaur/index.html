@@ -18,21 +18,21 @@
 		var baseMap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
 			{
 				attribution: 'Layers by <a href="http://rtechinfra.com/" target="blank">R-Tech Infra Associates, Jaipur</a> | Programming by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/Nagaur/README.md" target="blank">v0.2</a>',
-				maxZoom: 19,
+				maxZoom: 17,
 				minZoom: 10,
 			}).addTo(map);
 		
 		var  terrainMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 			{
 				attribution: 'Layers by <a href="http://rtechinfra.com/" target="blank">R-Tech Infra Associates, Jaipur</a> | Programming by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/Nagaur/README.md" target="blank">v0.2</a>',
-				maxZoom: 19,
+				maxZoom: 17,
 				minZoom: 10,
 			}).addTo(map);
 		
 		//Styling GeoJson
 		
 		var styleSubdivisions = {
-			"fillColor": '#D46C7F',
+			"fillOpacity": 0,
 			"color": '#41BBD9',
 			"weight": 0.85,
 		};
@@ -54,7 +54,7 @@
 			style: styleSubdivisions,
 			onEachFeature: function(feature, marker) {
 				marker.bindPopup(
-					'<div><b>Khasra Number: </b>'+feature.properties.KHASRA_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OWNERSHIP +'</div><div><b>Area (khatebandi): </b>'+feature.properties.AREA_KB+' </div><div><b>Area (actual): </b>'+feature.properties.AREA+' sq. meters</div>');
+					'<div><b>Khasra Number: </b>'+feature.properties.KHASRA_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OWNERSHIP +'</div><div><b>Area: </b>'+feature.properties.AREA+' ha.</div>');
 			}
 		});
 		
