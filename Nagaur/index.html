@@ -9,6 +9,7 @@
 <body>
 	<header id="header"><b>Intelligent Rajasthan</b>, Nagaur</header>
 	<div id="map"></div> 
+	<script src="http://rowanwins.github.io/leaflet-easyPrint/dist/bundle.js"></script>
 	<script src="https://panditjoe.github.io/JSON/source.js"></script>
 	<script src="polygon.js"></script>
 
@@ -34,7 +35,7 @@
 		var styleSubdivisions = {
 			"fillOpacity": 0,
 			"color": '#41BBD9',
-			"weight": 0.85,
+			"weight": 1.25,
 		};
 		
 		/*
@@ -149,6 +150,16 @@
 			lastZoom = zoom;
 		}
 		
+		//Print 
+		/**
+		var printer = L.easyPrint({
+      			tileLayer: tiles,
+      			sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+      			filename: 'myMap',
+      			exportOnly: true,
+      			hideControlContainer: true
+		}).addTo(map);
+**/
 		map.on('zoomend', resizeTooltip);
 	</script>
 </body>
