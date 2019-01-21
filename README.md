@@ -1,6 +1,6 @@
 # WEBMAP v0.5
-Updates v0.5 (12/01/19):
-- Renewed the weblink
+Updates v0.5 (18/01/19):
+- Renamed the dashboard 
 
 v0.4 (02/10/18):
 - Added labels
