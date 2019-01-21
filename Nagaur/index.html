@@ -5,8 +5,23 @@
 	<title>BHU-NIDHI v0.2</title>
 	<link rel="stylesheet" href="https://panditjoe.github.io/JSON/style.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<style>
+		.preloader {
+		   position: absolute;
+		   top: 0;
+		   left: 0;
+		   width: 100%;
+		   height: 100%;
+		   z-index: 9999;
+		   background-image: url('default.gif');
+		   background-repeat: no-repeat; 
+		   background-color: #FFF;
+		   background-position: center;
+		}
+	</style>
 </head> 
 <body>
+	<div class="preloader">
 	<header id="header"><b>Intelligent Rajasthan</b>, Nagaur</header>
 	<div id="map"></div> 
 	<script src="http://rowanwins.github.io/leaflet-easyPrint/dist/bundle.js"></script>
@@ -162,5 +177,6 @@
 **/
 		map.on('zoomend', resizeTooltip);
 	</script>
+	</div>
 </body>
 </html>
