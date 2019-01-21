@@ -1,5 +1,8 @@
-# WEBMAP v0.5
-Updates v0.5 (18/01/19):
+# WEBMAP v0.6
+Updates v0.6 (21/01/19):
+- Added preloader script
+
+v0.5 (18/01/19):
 - Renamed the dashboard 
 
 v0.4 (02/10/18):
