@@ -59,6 +59,13 @@
 				minZoom: 12,
 			}).addTo(map);
 		
+		var drone = L.tileLayer('https://panditjoe.github.io/JSON/QTiles/{z}/{x}/{y}.png',
+			{
+				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Programming by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.6</a>',
+				maxZoom: 18,
+				minZoom: 14,
+			}).addTo(map);
+		
 		//Styling GeoJson		
 		var styleSubdivisions = {
 			"fillColor": '#D46C7F',
@@ -102,7 +109,8 @@
 		
 		var overlays = {
 			"Survey": survey,
-			"Subdivision": subdivision
+			"Subdivision": subdivision,
+			"Drone": drone
 		};
 		
 		L.control.layers(baseLayers	, overlays,
