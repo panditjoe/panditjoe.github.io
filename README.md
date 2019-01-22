@@ -1,5 +1,8 @@
-# WEBMAP v0.6
-Updates v0.6 (21/01/19):
+# WEBMAP v0.7
+Updates v0.7 (22/01/19):
+- Added drone imagery for prototyping 
+
+v0.6 (21/01/19):
 - Added preloader script
 
 v0.5 (18/01/19):
