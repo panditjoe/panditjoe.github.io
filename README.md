@@ -1,4 +1,4 @@
-# WEBMAP v0.7
+# BHU-NIDHI v0.7
 Updates v0.7 (22/01/19):
 - Added sample drone imagery
 
@@ -6,7 +6,7 @@ v0.6 (21/01/19):
 - Added preloader script
 
 v0.5 (18/01/19):
-- Renamed the dashboard 
+- Renamed the dashboard to BHU-NIDHI
 
 v0.4 (02/10/18):
 - Added labels
