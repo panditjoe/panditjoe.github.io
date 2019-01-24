@@ -75,19 +75,6 @@
 			style: styleSubdivisions
 		});
 		
-			/**
-		var survey = new L.GeoJSON(survey, {
-			style: styleSurvey,
-			onEachFeature: function(feature, marker) {
-				marker.bindTooltip(
-					'<div><b>Khasra Number:</b>'+feature.properties.KHASRA_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OWNERSHIP +'</div><div><b>Area (khatebandi): </b>'+feature.properties.AREA_KB+' </div><div><b>Area (actual): </b>'+feature.properties.AREA+' sq. meters</div>', {
-						direction: 'center',
-						className: 'newTooltip'
-					});
-			}
-		});	
-		**/
-		
 		//Layers
 		var baseLayers = {
 			"BaseMap": baseMap,
@@ -112,45 +99,6 @@
 		    }
 		}).addTo(map);
 		
-		//Scale
-		var scale = L.control.scale({position: 'bottomleft', imperial: 'false'}).addTo(map);
-		
-		//Labels
-		var lastZoom;
-		function resizeTooltip() {
-			var zoom = map.getZoom();
-			if (zoom < 16 && (!lastZoom || lastZoom >= 16)) {
-				map.eachLayer(function(l) {
-					if (l.getTooltip()) {
-						var tooltip = l.getTooltip();
-						l.unbindTooltip().bindTooltip(tooltip, {
-							permanent: false
-						})
-					}
-				})
-			} else if (zoom >= 16 && (!lastZoom || lastZoom < 16)) {
-				map.eachLayer(function (l) {
-					if (l.getTooltip()) {
-						var tooltip = l.getTooltip();
-						l.unbindTooltip().bindTooltip(tooltip, {
-							permanent: true
-						})
-					}
-				})
-			};
-			lastZoom = zoom;
-		}
-		
-		//Print 
-		/**
-		var printer = L.easyPrint({
-      			tileLayer: tiles,
-      			sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
-      			filename: 'myMap',
-      			exportOnly: true,
-      			hideControlContainer: true
-		}).addTo(map);
-**/
 		map.on('zoomend', resizeTooltip);
 	</script>
 </body>
