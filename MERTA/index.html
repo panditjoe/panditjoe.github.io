@@ -71,7 +71,7 @@
 		//GeoJSON files
 		
 		
-		var subdivision = new L.GeoJSON(HT_Line, {
+		var subdivision = new L.GeoJSON(zone, {
 			style: styleSubdivisions
 		});
 		
@@ -96,7 +96,7 @@
 		
 		var overlays = {
 			//"Survey": survey,
-			"Survey": subdivision
+			"Survey": zone
 		};
 		
 		L.control.layers(baseLayers	, overlays,
