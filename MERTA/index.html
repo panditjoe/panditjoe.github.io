@@ -72,11 +72,7 @@
 		
 		
 		var subdivision = new L.GeoJSON(HT_Line, {
-			style: styleSubdivisions,
-			onEachFeature: function(feature, marker) {
-				marker.bindPopup(
-					'<div><b>Khasra Number: </b>'+feature.properties.KHASRA_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OWNERSHIP +'</div><div><b>Area: </b>'+feature.properties.AREA+' sq. meters</div>');
-			}
+			style: styleSubdivisions}
 		});
 		
 			/**
@@ -108,31 +104,6 @@
 			collapsed: false,
 			hideSingleBase: true,
 		}).addTo(map);
-		
-		//Search Bar
-		var searchControl = new L.Control.Search ({
-			layer: subdivision,
-			propertyName: 'KHASRA_NO',
-			marker: false,
-			moveToLocation: function(latlng, title, map) {
-				//map.fitBounds( latlng.layer.getBounds() );
-				var zoom = map.getBoundsZoom(latlng.layer.getBounds());
-				map.setView(latlng, zoom); // access the zoom
-		}});
-		
-		searchControl.on('search:locationfound', function(e) {
-		
-			//console.log('search:locationfound', );
-			//map.removeLayer(this._markerSearch)
-			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
-			if(e.layer._popup)
-				e.layer.openPopup();
-			}).on('search:collapsed', function(e) {
-				survey.eachLayer(function(layer) {	//restore feature color
-				survey.resetStyle(layer);
-			});	
-		});
-		map.addControl( searchControl );  //inizialize search control
 		
 		//location marker 
 		lc = L.control.locate({
