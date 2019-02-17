@@ -40,8 +40,7 @@
 	<header id="header"><b>BHU-NIDHI &copy; :</b> Intelligent Taleigao Initiative</header>
 	<div id="map"></div> 
 	<script src="source.js"></script>
-	
-	<!-- POLYGON SCRIPT FOR SURVEY & SUBDIVISIONS <script src="polygons.js"></script> --> 
+	<script src="polygons.js"></script>
 
 	<!-- MAP SCRIPT -->
 	<script type="text/javascript">
@@ -66,8 +65,7 @@
 				maxZoom: 17,
 				minZoom: 12,
 			}).addTo(map);
-		
-		/** HIDING SURVEY/SUBDIVISION POLYGONS
+
 		
 		//Styling GeoJson		
 		var styleSubdivisions = {
@@ -104,8 +102,6 @@
 			}
 		});	
 		
-		*/
-		
 		//Layers
 		var baseLayers = {
 			"BaseMap": baseMap,
@@ -113,8 +109,8 @@
 		};
 		
 		var overlays = {
-			// "Survey": survey,
-			// "Subdivision": subdivision,
+			"Survey": survey,
+			"Subdivision": subdivision,
 			"RP21": RP
 		};
 		
@@ -184,6 +180,7 @@
 			};
 			lastZoom = zoom;
 		}
+
 		
 		map.on('zoomend', resizeTooltip);
 	</script>
