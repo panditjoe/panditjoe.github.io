@@ -181,6 +181,13 @@
 			lastZoom = zoom;
 		}
 
+		//Opacity-Control
+		L.control.opacity(
+			overlays,
+			{
+				label: "Layers Opacity"
+			}
+		).addTo(map);
 		
 		map.on('zoomend', resizeTooltip);
 	</script>
