@@ -1,1 +1,1 @@
-This folder contains the JSON files.
+Survey and subdivision polygons have been cut out from the master file. To get those back, remove comments from line number 44, 70, 107, 116 & 117.
