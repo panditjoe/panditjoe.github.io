@@ -1,7 +1,7 @@
 # BHU-NIDHI v0.8
 Updates v0.8 (17/02/19):
 - Removed sample drone imagery
-- Processing RP imagery and new drone imagery
+- Updated drone imagery and RP
 
 v0.7 (22/01/19):
 - Added sample drone imagery
