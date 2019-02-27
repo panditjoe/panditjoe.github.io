@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129616441-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-129616441-1');
+		</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>BHU-NIDHI &copy;</title>
+	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<style>
+		.preloader {
+		   position: absolute;
+		   top: 0;
+		   left: 0;
+		   width: 100%;
+		   height: 100%;
+		   z-index: 9999;
+		   background-image: url('default.gif');
+		   background-repeat: no-repeat; 
+		   background-color: #FFF;
+		   background-position: center;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+		$(window).load(function() {
+		   $('.preloader').fadeOut('slow');
+		});
+	</script>	
+</head> 
+<body>
+	<div class="preloader"></div>
+	<header id="header"><b>BHU-NIDHI &copy;</b> Intelligent Rajasthan Initiative </header>
+	<div id="map"></div> 
+	<script src="panditjoe.github.io/JSON/source.js"></script>
+
+	<!-- MAP SCRIPT -->
+	<script type="text/javascript">
+		var map = L.map('map').setView([15.47, 73.82], 13);
+		var baseMap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+			{
+				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.1</a>',
+				maxZoom: 17,
+				minZoom: 12,
+			}).addTo(map);
+		
+		var  terrainMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+			{
+				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.1</a>',
+				maxZoom: 17,
+				minZoom: 12,
+			}).addTo(map);
+		
+		var drone = L.tileLayer('https://panditjoe.github.io/CHITTORGARH/Chittorgarh-Tiles/{z}/{x}/{y}.png',
+			{
+				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.1</a>',
+				maxZoom: 19,
+				minZoom: 12,
+			}).addTo(map);	
+		
+		//Layers
+		var baseLayers = {
+			"BaseMap": baseMap,
+			"Satellite": terrainMap,
+		};
+		
+		var overlays = {
+			"Drone": drone
+		};
+		
+		L.control.layers(baseLayers	, overlays,
+		{
+			collapsed: false,
+			hideSingleBase: true,
+		}).addTo(map);
+		
+		//Search Bar
+		var searchControl = new L.Control.Search ({
+			layer: survey,
+			propertyName: 'SurveyNo',
+			marker: false,
+			moveToLocation: function(latlng, title, map) {
+				//map.fitBounds( latlng.layer.getBounds() );
+				var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+				map.setView(latlng, zoom); // access the zoom
+		}});
+		
+		searchControl.on('search:locationfound', function(e) {
+		
+			//console.log('search:locationfound', );
+			//map.removeLayer(this._markerSearch)
+			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+			if(e.layer._popup)
+				e.layer.openPopup();
+			}).on('search:collapsed', function(e) {
+				survey.eachLayer(function(layer) {	//restore feature color
+				survey.resetStyle(layer);
+			});	
+		});
+		map.addControl( searchControl );  //inizialize search control
+		
+		//location marker 
+		lc = L.control.locate({
+		    strings: {
+			title: "Locate me!"
+		    }
+		}).addTo(map);
+		
+		//Scale
+		var scale = L.control.scale({position: 'bottomleft', imperial: 'false'}).addTo(map);
+
+		map.on('zoomend', resizeTooltip);
+	</script>
+</body>
+</html>
