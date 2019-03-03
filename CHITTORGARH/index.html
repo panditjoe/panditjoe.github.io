@@ -4,7 +4,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>BHU-NIDHI &copy;</title>
 	<link rel="stylesheet" href="https://panditjoe.github.io/JSON/style.css" />
-    <script src="https://rawgithub.com/ebrelsford/Leaflet.loading/master/src/Control.Loading.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<style>
 		.preloader {
@@ -81,13 +81,6 @@
 		
 		//Scale
 		var scale = L.control.scale({position: 'bottomleft', imperial: 'false'}).addTo(map);
-		
-		//Loading-Control
-		var loadingControl = L.Control.loading({
-                    spinjs: true
-                });
-        map.addControl(loadingControl);
-
 	</script>
 </body>
 </html>
