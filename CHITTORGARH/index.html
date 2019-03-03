@@ -3,11 +3,8 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>BHU-NIDHI &copy;</title>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js"></script>
 	<link rel="stylesheet" href="https://panditjoe.github.io/JSON/style.css" />
-	<script src="https://panditjoe.github.io/JSON/source.js"></script>
-	<link rel="stylesheet" href="https://rawgithub.com/ebrelsford/Leaflet.loading/master/src/Control.Loading.css" />
-	<script src="https://rawgithub.com/ebrelsford/Leaflet.loading/master/src/Control.Loading.js"></script>
+    <script src="https://rawgithub.com/ebrelsford/Leaflet.loading/master/src/Control.Loading.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<style>
 		.preloader {
@@ -33,10 +30,11 @@
 <body>
 	<div class="preloader"></div>
 	<header id="header"><b>BHU-NIDHI &copy;</b> Intelligent Rajasthan Initiative </header>
+	<script src="https://panditjoe.github.io/JSON/source.js"></script>
 	<div id="map"></div> 
 	<!-- MAP SCRIPT -->
 	<script type="text/javascript">
-		var map = L.map('map').setView([24.86, 74.61], 13);
+		var map = L.map('map', {loadingControl: true}).setView([24.86, 74.61], 13);
 		var baseMap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
 			{
 				attribution: 'Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | Layers by <a href="http://rtechinfra.com/" target="blank">R-Tech Infra Associates - Jaipur</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.1</a>',
