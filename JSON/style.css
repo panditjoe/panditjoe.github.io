@@ -780,8 +780,8 @@ html, body {
 
 /* custom css */
 		.newTooltip {
-			color: #E6C846;
-			font-size:13px;
+			color: white
+			font-size:25px;
 			font-weight: 900;
 			fillColor: none;
 			fillOpacity: 0;

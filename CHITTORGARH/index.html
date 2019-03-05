@@ -66,26 +66,36 @@
 			}).addTo(map);	
 		
 		//Shapefile Styling
+		var styleRoads = {
+			"color": '#001a00',
+			"weight": 1.5,
+		};
+		
 		var styleFishnet = {
 			"fill": 'false',
 			"fillOpacity": 0,
 			"dashArray":4,
-			"color": '#E6C846',
+			"color": '#FFFF00',
 			"weight": 2.5,
 		};	
 		
 		//Shapefiles
-		var fishnet = L.GeoJSON(fishnet, {
+		var roads = new L.GeoJSON(roads, {
+			style: styleRoads,
+			smoothFactor: 2.5
+		});
+		
+		var fishnet = new L.GeoJSON(fishnet, {
 			style: styleFishnet,
 			onEachFeature: function(feature, marker) {
 				marker.bindTooltip(
-					'<div>'+feature.properties.PolyID+'</div>', {
-						direction: 'center',
+					'<div style="color:#FFFF00; font-size:25px;">'+feature.properties.PolyID+'</div>', {
+						sticky: 'true',
 						className: 'newTooltip'
 					});
 			}
 		});			
-		
+
 		//Layers
 		var baseLayers = {
 			"Base Map": baseMap,
@@ -95,6 +105,7 @@
 			"Satellite": terrainMap,
 			"Drone": drone,
 			"Fishnet": fishnet,
+			"Roads": roads
 		};
 		
 		L.control.layers(baseLayers	, overlays,
@@ -113,32 +124,6 @@
 		
 		//Scale
 		var scale = L.control.scale({position: 'bottomleft', imperial: 'false'}).addTo(map);
-		
-		//Labels
-		var lastZoom;
-		function resizeTooltip() {
-			var zoom = map.getZoom();
-			if (zoom < 16 && (!lastZoom || lastZoom >= 16)) {
-				map.eachLayer(function(l) {
-					if (l.getTooltip()) {
-						var tooltip = l.getTooltip();
-						l.unbindTooltip().bindTooltip(tooltip, {
-							permanent: false
-						})
-					}
-				})
-			} else if (zoom >= 16 && (!lastZoom || lastZoom < 16)) {
-				map.eachLayer(function (l) {
-					if (l.getTooltip()) {
-						var tooltip = l.getTooltip();
-						l.unbindTooltip().bindTooltip(tooltip, {
-							permanent: true
-						})
-					}
-				})
-			};
-			lastZoom = zoom;
-		}
 		
 		//tile loading script
 		var loadingControl = L.Control.loading({
