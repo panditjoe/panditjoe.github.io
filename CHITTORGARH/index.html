@@ -37,6 +37,10 @@
 	<header id="header"><b>BHU-NIDHI &copy;</b> Intelligent Rajasthan Initiative </header>
 
 	<div id="map"></div> 
+	
+	<script src="JSON/fishnet.js"></script>
+	<script src="JSON/roads.js"></script>
+	
 	<!-- MAP SCRIPT -->
 	<script type="text/javascript">
 		var map = L.map('map').setView([24.86, 74.61], 13);
@@ -61,13 +65,36 @@
 				minZoom: 11,
 			}).addTo(map);	
 		
+		//Shapefile Styling
+		var styleFishnet = {
+			"fill": 'false',
+			"fillOpacity": 0,
+			"dashArray":4,
+			"color": '#E6C846',
+			"weight": 2.5,
+		};	
+		
+		//Shapefiles
+		var fishnet = L.GeoJSON(fishnet, {
+			style: styleFishnet,
+			onEachFeature: function(feature, marker) {
+				marker.bindTooltip(
+					'<div>'+feature.properties.PolyID+'</div>', {
+						direction: 'center',
+						className: 'newTooltip'
+					});
+			}
+		});			
+		
 		//Layers
-		var baseLayers = {		};
+		var baseLayers = {
+			"Base Map": baseMap,
+		};
 		
 		var overlays = {
-			"Base Map": baseMap,
 			"Satellite": terrainMap,
-			"Drone": drone
+			"Drone": drone,
+			"Fishnet": fishnet,
 		};
 		
 		L.control.layers(baseLayers	, overlays,
@@ -86,6 +113,32 @@
 		
 		//Scale
 		var scale = L.control.scale({position: 'bottomleft', imperial: 'false'}).addTo(map);
+		
+		//Labels
+		var lastZoom;
+		function resizeTooltip() {
+			var zoom = map.getZoom();
+			if (zoom < 16 && (!lastZoom || lastZoom >= 16)) {
+				map.eachLayer(function(l) {
+					if (l.getTooltip()) {
+						var tooltip = l.getTooltip();
+						l.unbindTooltip().bindTooltip(tooltip, {
+							permanent: false
+						})
+					}
+				})
+			} else if (zoom >= 16 && (!lastZoom || lastZoom < 16)) {
+				map.eachLayer(function (l) {
+					if (l.getTooltip()) {
+						var tooltip = l.getTooltip();
+						l.unbindTooltip().bindTooltip(tooltip, {
+							permanent: true
+						})
+					}
+				})
+			};
+			lastZoom = zoom;
+		}
 		
 		//tile loading script
 		var loadingControl = L.Control.loading({
