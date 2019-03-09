@@ -37,8 +37,7 @@
 	<header id="header"><b>BHU-NIDHI &copy;</b> Intelligent Rajasthan Initiative </header>
 
 	<div id="map"></div> 
-	
-	<script src="https://panditjoe.github.io/CHITTORGARH/JSON/fishnet.js"></script>
+
 	<script src="https://panditjoe.github.io/CHITTORGARH/JSON/roads.js"></script>
 	<script src="https://panditjoe.github.io/CHITTORGARH/JSON/village.js"></script>
 	
@@ -85,17 +84,6 @@
 			style: styleRoads,
 			smoothFactor: 2.5
 		});
-		
-		var fishnet = new L.GeoJSON(fishnet, {
-			style: styleFishnet,
-			onEachFeature: function(feature, marker) {
-				marker.bindTooltip(
-					'<div style="color:#FFFF00; font-size:25px;">'+feature.properties.Number+'</div>', {
-						sticky: 'true',
-						className: 'newTooltip'
-					});
-			}
-		});			
 		
 		var village = new L.GeoJSON(village, {
 			style: styleFishnet,
