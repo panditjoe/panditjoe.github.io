@@ -40,6 +40,7 @@
 	
 	<script src="https://panditjoe.github.io/CHITTORGARH/JSON/fishnet.js"></script>
 	<script src="https://panditjoe.github.io/CHITTORGARH/JSON/roads.js"></script>
+	<script src="https://panditjoe.github.io/CHITTORGARH/JSON/village.js"></script>
 	
 	<!-- MAP SCRIPT -->
 	<script type="text/javascript">
@@ -95,6 +96,17 @@
 					});
 			}
 		});			
+		
+		var village = new L.GeoJSON(village, {
+			style: styleFishnet,
+			onEachFeature: function(feature, marker) {
+				marker.bindTooltip(
+					'<div style="color:#FFFF00; font-size:25px;">'+feature.properties.NAME+'</div>', {
+						sticky: 'true',
+						className: 'newTooltip'
+					});
+			}
+		});
 
 		//Layers
 		var baseLayers = {
@@ -104,7 +116,7 @@
 		var overlays = {
 			"Satellite": terrainMap,
 			"Drone": drone,
-			"Fishnet": fishnet,
+			"Villages": village,
 			"Roads": roads
 		};
 		
