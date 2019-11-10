@@ -45,41 +45,41 @@
 	<div class="preloader"></div>
 	<header id="header"><b>BHU-NIDHI &copy;</b> Intelligent Taleigao Initiative </header>
 	<div id="map"></div> 
-	<script src="polygons.js"></script>
+	<script src="penhaDe.js"></script>
 
 	<!-- MAP SCRIPT -->
 	<script type="text/javascript">
 		var map = L.map('map').setView([15.31, 73.50], 12);
 		var baseMap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
 			{
-				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.8</a>',
+				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.9</a>',
 				maxZoom: 17,
 				minZoom: 12,
 			}).addTo(map);
 		
 		var  terrainMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 			{
-				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.8</a>',
+				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.9</a>',
 				maxZoom: 17,
 				minZoom: 12,
 			}).addTo(map);
 		
 		var  drone = L.tileLayer('https://panditjoe.github.io/JSON/Parra-Drone/{z}/{x}/{y}.png',
 			{
-				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.8</a>',
+				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.9</a>',
 				maxZoom: 19,
 				minZoom: 12,
 			}).addTo(map);
 		
 		var RP = L.tileLayer('https://panditjoe.github.io/JSON/Parra/{z}/{x}/{y}.png',
 			{
-				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.8</a>',
+				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.9</a>',
 				maxZoom: 19,
 				minZoom: 12,
 			}).addTo(map);			
 		
 		//Styling GeoJson		
-		var styleSubdivisions = {
+		//var styleSubdivisions = {
 			"fillColor": '#D46C7F',
 			"color": '#41BBD9',
 			"weight": 0.85,
@@ -94,7 +94,7 @@
 		};		
 		
 		//GeoJSON files
-		var subdivision = new L.GeoJSON(subdivision, {
+		//var subdivision = new L.GeoJSON(subdivision, {
 			style: styleSubdivisions,
 			onEachFeature: function(feature, marker) {
 				marker.bindPopup(
@@ -120,8 +120,8 @@
 		};
 		
 		var overlays = {
-			"Survey": survey,
-			"Subdivision": subdivision,
+			"Survey & Subdivision": survey,
+			//"Subdivision": subdivision,
 			"Drone": drone,
 			"RP21": RP
 		};
@@ -135,7 +135,7 @@
 		//Search Bar
 		var searchControl = new L.Control.Search ({
 			layer: survey,
-			propertyName: 'SurveyNo',
+			propertyName: 'SURVEY',
 			marker: false,
 			moveToLocation: function(latlng, title, map) {
 				//map.fitBounds( latlng.layer.getBounds() );
