@@ -1,5 +1,8 @@
-# BHU-NIDHI v0.8
-Updates v0.8 (17/02/19):
+# BHU-NIDHI v0.9
+Updates v0.9 (10/11/19):
+- Added Survey details of new village (penha De franca, GOA)
+
+v0.8 (17/02/19):
 - Removed sample drone imagery
 - Updated drone imagery and RP
 
