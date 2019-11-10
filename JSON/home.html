@@ -80,10 +80,10 @@
 		
 		//Styling GeoJson		
 		//var styleSubdivisions = {
-			"fillColor": '#D46C7F',
-			"color": '#41BBD9',
-			"weight": 0.85,
-		};
+		//	"fillColor": '#D46C7F',
+		//	"color": '#41BBD9',
+		//	"weight": 0.85,
+		//};
 		
 		var styleSurvey = {
 			"fill": 'false',
@@ -95,12 +95,12 @@
 		
 		//GeoJSON files
 		//var subdivision = new L.GeoJSON(subdivision, {
-			style: styleSubdivisions,
-			onEachFeature: function(feature, marker) {
-				marker.bindPopup(
-					'<div><b>Survey Number:</b>'+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
-			}
-		});
+		//	style: styleSubdivisions,
+		//	onEachFeature: function(feature, marker) {
+		//		marker.bindPopup(
+		//			'<div><b>Survey Number:</b>'+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
+		//	}
+		//});
 			
 		var survey = new L.GeoJSON(penhaDe, {
 			style: styleSurvey,
