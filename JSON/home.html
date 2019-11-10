@@ -49,7 +49,7 @@
 
 	<!-- MAP SCRIPT -->
 	<script type="text/javascript">
-		var map = L.map('map').setView([15.51, 73.80], 14);
+		var map = L.map('map').setView([15.51, 73.80], 13);
 		var baseMap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
 			{
 				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.9</a>',
@@ -67,14 +67,14 @@
 		var  drone = L.tileLayer('https://panditjoe.github.io/JSON/Parra-Drone/{z}/{x}/{y}.png',
 			{
 				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.9</a>',
-				maxZoom: 19,
+				maxZoom: 17,
 				minZoom: 12,
 			}).addTo(map);
 		
 		var RP = L.tileLayer('https://panditjoe.github.io/JSON/Parra/{z}/{x}/{y}.png',
 			{
 				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.9</a>',
-				maxZoom: 19,
+				maxZoom: 17,
 				minZoom: 12,
 			}).addTo(map);			
 		
@@ -89,7 +89,7 @@
 			"fill": 'false',
 			"fillOpacity": 0,
 			"dashArray":4,
-			"color": '#E6C846',
+			"color": '#FFF	',
 			"weight": 2.5,
 		};		
 		
@@ -98,7 +98,7 @@
 			style: styleSubdivisions,
 			onEachFeature: function(feature, marker) {
 				marker.bindPopup(
-					'<div><b>Survey Number:</b>'+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
+					'<div><b>Survey Number:</b>'+feature.properties.SURVEY+'/'+feature.properties.SUBDIVISIO+'</div><div><b>Total Area: </b>'+feature.properties.S_AREA_SQM+' sq. meters</div><div><b>Area of Subdivision: </b>'+feature.properties.SD_AREA_SQ+' sq. meters</div>');
 			}
 		});
 			
@@ -106,7 +106,7 @@
 			style: styleSurvey,
 			onEachFeature: function(feature, marker) {
 				marker.bindTooltip(
-					'<div>'+feature.properties.SURVEY+'</div>', {
+					'<div style="color:White">'+feature.properties.SURVEY+'</div>', {
 						direction: 'center',
 						className: 'newTooltip'
 					});
