@@ -49,7 +49,7 @@
 
 	<!-- MAP SCRIPT -->
 	<script type="text/javascript">
-		var map = L.map('map').setView([15.31, 73.50], 12);
+		var map = L.map('map').setView([15.51, 73.80], 14);
 		var baseMap = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
 			{
 				attribution: 'Layers by <a href="http://turbosketch.com/" target="blank">M/s TurboSketch Goa</a> | Application by <a href="https://www.linkedin.com/in/pulkitsingal/" target="blank">Pulkit Singal</a> | <a href="panditjoe.github.io/README.md" target="blank">v0.9</a>',
@@ -79,11 +79,11 @@
 			}).addTo(map);			
 		
 		//Styling GeoJson		
-		//var styleSubdivisions = {
-		//	"fillColor": '#D46C7F',
-		//	"color": '#41BBD9',
-		//	"weight": 0.85,
-		//};
+		var styleSubdivisions = {
+			"fillColor": '#D46C7F',
+			"color": '#41BBD9',
+			"weight": 0.85,
+		};
 		
 		var styleSurvey = {
 			"fill": 'false',
@@ -94,15 +94,15 @@
 		};		
 		
 		//GeoJSON files
-		//var subdivision = new L.GeoJSON(subdivision, {
-		//	style: styleSubdivisions,
-		//	onEachFeature: function(feature, marker) {
-		//		marker.bindPopup(
-		//			'<div><b>Survey Number:</b>'+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
-		//	}
-		//});
+		var subdivision = new L.GeoJSON(subdivision, {
+			style: styleSubdivisions,
+			onEachFeature: function(feature, marker) {
+				marker.bindPopup(
+					'<div><b>Survey Number:</b>'+feature.properties.SurveyNo+'/'+feature.properties.SD_NO+'</div><div style="color:'+feature.properties.color+'"><b>Owner/s: </b>'+ feature.properties.OwnerName +'</div><div><b>Area: </b>'+feature.properties.SD_AR+' sq. meters</div><div><b>Perimeter: </b>'+feature.properties.SD_PER+' meters</div>');
+			}
+		});
 			
-		var survey = new L.GeoJSON(penhaDe, {
+		var survey = new L.GeoJSON(survey, {
 			style: styleSurvey,
 			onEachFeature: function(feature, marker) {
 				marker.bindTooltip(
@@ -120,8 +120,8 @@
 		};
 		
 		var overlays = {
-			"Survey & Subdivision": survey,
-			//"Subdivision": subdivision,
+			"Survey": survey,
+			"Subdivision": subdivision,
 			"Drone": drone,
 			"RP21": RP
 		};
